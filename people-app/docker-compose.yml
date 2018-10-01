@@ -1,6 +1,8 @@
 version: '3'
 services:
   web:
+    environment:
+      SALESLOFT_API_KEY: ${SALESLOFT_API_KEY}
     build: .
     ports:
      - "9000:9000"
