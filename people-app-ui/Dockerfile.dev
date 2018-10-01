@@ -1,7 +1,7 @@
 FROM node:9
 RUN mkdir /peopleapp-ui
-WORKDIR /peopleapp-ui
-COPY /peopleapp-ui .
+WORKDIR .
+COPY . .
 
 RUN npm install --quiet
 
