@@ -6,6 +6,7 @@
     "fsevents": "*"
   },
   "dependencies": {
+    "antd": "^3.10.0",
     "bootstrap": "^3.3.7",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",

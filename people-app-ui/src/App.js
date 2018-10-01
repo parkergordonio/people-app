@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './people.svg';
 import './App.css';
-import { Button, Table , Grid } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
+import { Table, Button } from 'antd';
+// import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 
 
 class People extends Component {
@@ -18,32 +20,32 @@ class People extends Component {
         return results.json();
       }).then(data => {
         console.log(data)
+        let people = data
+        this.setState({people: people});
       })
   }
 
+  pageChanged() {
+    console.log("Page changed!")
+  }
+
   render() {
+    const columns = [{
+      title: 'Name',
+      dataIndex: 'fullName',
+      key: 'fullName',
+    }, {
+      title: 'Email Address',
+      dataIndex: 'emailAddress',
+      key: 'emailAddress',
+    }, {
+      title: 'Job Title',
+      dataIndex: 'jobTitle',
+      key: 'jobTitle',
+    }];
+
     return (
-      <Table striped bordered >
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Job Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-        </tbody>
-      </Table>
+      <Table dataSource={this.state.people} columns={columns} onChange={this.pageChanged}/>
     )
   }
 }
@@ -53,8 +55,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">People Application</h1>
+          <h1 className="App-title">
+            <img src={logo} className="App-logo" alt="logo" />
+            <div>People Application</div>
+          </h1>
         </header>
         <p/>
         <Grid>
@@ -62,7 +66,9 @@ class App extends Component {
             Directory
           </p>
           <People />
-          <Button>
+          <Button
+            loading='true'
+          >
             Character Lookup
           </Button>
         </Grid>
