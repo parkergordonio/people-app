@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import logo from './people.svg';
 import './App.css';
-import { Grid, Row, Col } from 'react-bootstrap';
-import { Table, Button } from 'antd';
-
+import { Row, Col, Layout, Menu, Table, Button, Icon, Divider } from 'antd';
+const { Header, Content, Footer } = Layout;
 
 class PeopleTable extends Component {
-  pageSize = 10
+  pageSize = 8
 
   constructor() {
     super();
@@ -73,34 +72,43 @@ class PeopleTable extends Component {
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <Grid>
-            <Row>
-              <Col xs={6} md={1}>
-                <img src={logo} className="App-logo" alt="logo" />
-              </Col>
-              <Col xs={12} md={6}>
-                <h1 className="App-title">People Application</h1>
-              </Col>
-              <Col xs={12} md={5} />
-            </Row>
-          </Grid>
-        </header>
-        <p/>
-        <Grid>
-          <p align="left" className="App-intro">
-            Directory
-          </p>
-          <PeopleTable />
-          <div className="text-left">
-            <Button align="left">
-              Character Lookup
-            </Button>
-          </div>
-          
-        </Grid>
-      </div>
+      //<div className="App">
+        <Layout className="layout">
+          <Header>
+            <div>
+              <Row>
+                <Col span={4}>
+                <div className="App-header">Workforce Portal</div>
+                </Col>
+                <Col span={20}>
+                  <Menu
+                    theme="dark"
+                    mode="horizontal"
+                    defaultSelectedKeys={['1']}
+                    style={{ lineHeight: '64px' }}
+                  >
+                    <Menu.Item key="1">People</Menu.Item>
+                    <Menu.Item key="2">Contact</Menu.Item>
+                  </Menu>
+                </Col>
+              </Row>
+            </div>
+          </Header>
+          <Content style={{ padding: '0 50px' }}>
+            <div>
+              <Divider>Directory</Divider>
+              <PeopleTable />
+              <div align="center">
+                <Divider>Character Frequency Lookup</Divider>
+                <Button >Display</Button>
+              </div>
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Workforce Portal ©2018 Created by Parker Gordon. Data provided by SalesLoft.
+          </Footer>
+        </Layout>
+      //</div>
     );
   }
 }

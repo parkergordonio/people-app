@@ -1,24 +1,32 @@
 @import '~antd/dist/antd.css';
 
+.Logo {
+  width: 31px;
+  height: 31px;
+  background: rgba(255,255,255,.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
   padding: 10px;
-  height: 90px;
+  height: 70px;
+  text-align: right;
 }
-
+ 
 .App-header {
-  background-color: rgb(5, 58, 138);
-  height: 110px;
-  padding: 10px;
-  color: white;
-  text-align: left;
+  color: rgba(255, 255, 255, 0.692);
+  text-align: right;
+  padding-right: 10px;
+  font-size: 1.5em;
 }
 
 .App-title {
-  font-size: 2.0em;
+  font-size: 1.6em;
   padding: 40px;
   color: rgb(230, 230, 230);
 }
