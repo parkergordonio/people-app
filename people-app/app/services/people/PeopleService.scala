@@ -1,9 +1,12 @@
 package services.people
 
-import models.people.Person
+import models.people.{PeoplePage, Person}
+
 import scala.concurrent.Future
 
 
+
 trait PeopleService {
-  def findAll(): Future[List[Person]]
+  def find(page: Int, pageSize: Int): Future[PeoplePage]
+  //def findAll(): Future[List[Person]]
 }
