@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from './people.svg';
 import './App.css';
-import { Row, Col, Layout, Menu, Table, Button, Icon, Divider } from 'antd';
+import { Row, Col, Layout, Menu, Table, Divider } from 'antd';
+import CharCountDisplay from './CharCountDisplay';
 const { Header, Content, Footer } = Layout;
 
 class PeopleTable extends Component {
@@ -78,7 +78,7 @@ class App extends Component {
             <div>
               <Row>
                 <Col span={4}>
-                <div className="App-header">Workforce Portal</div>
+                  <div className="App-header">Workforce Portal</div>
                 </Col>
                 <Col span={20}>
                   <Menu
@@ -97,11 +97,8 @@ class App extends Component {
           <Content style={{ padding: '0 50px' }}>
             <div>
               <Divider>Directory</Divider>
-              <PeopleTable />
-              <div align="center">
-                <Divider>Character Frequency Lookup</Divider>
-                <Button >Display</Button>
-              </div>
+              <PeopleTable span={4}/>
+              <CharCountDisplay />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
