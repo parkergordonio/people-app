@@ -3,5 +3,7 @@
 # ~~~~
 GET     /people                     controllers.PeopleController.findPeople(page: Int, pageSize: Int)
 
+GET     /people/char/frequency      controllers.PeopleController.findCharFrequency()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)

@@ -32,6 +32,12 @@ class PeopleController @Inject()(
 //    }
   }
 
+  def findCharFrequency() = Action.async {
+    peopleService.findCharFrequency().map { c =>
+      Ok(Json.toJson(c))
+    }
+  }
+
   private def getFutureMessage(delayTime: FiniteDuration): Future[String] = {
     val promise: Promise[String] = Promise[String]()
     actorSystem.scheduler.scheduleOnce(delayTime) {
