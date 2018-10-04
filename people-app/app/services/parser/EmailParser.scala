@@ -1,4 +1,4 @@
-package services.charCounter
+package services.parser
 
 import javax.inject.Inject
 
@@ -6,8 +6,8 @@ import models.CharCount.CharCountPair
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CharCounter @Inject() (implicit val ex: ExecutionContext) extends CharService {
-  override def genCharCount(wordsFut: Future[List[String]]): Future[Seq[CharCountPair]] = {
+class EmailParser @Inject()(implicit val ex: ExecutionContext) extends ParsingService {
+  override def lookupCharFrequency(wordsFut: Future[List[String]]): Future[Seq[CharCountPair]] = {
     wordsFut.map { words =>
       val chars = words.flatMap(_.toList)
 
@@ -17,4 +17,6 @@ class CharCounter @Inject() (implicit val ex: ExecutionContext) extends CharServ
       counts.toSeq.sortWith(_.count > _.count)
     }
   }
+
+  override def predictDuplicates(words: Future[List[String]]): Future[Seq[List[String]]] = ???
 }

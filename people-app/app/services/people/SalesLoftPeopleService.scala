@@ -6,16 +6,16 @@ import models.CharCount.CharCountPair
 import models.people.{PageMeta, PeoplePage, Person}
 import play.api.Configuration
 import play.api.libs.ws.{WSClient, WSResponse}
-import services.charCounter.{CharService}
+import services.parser.{ParsingService}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
 class SalesLoftPeopleService @Inject() (
-    ws: WSClient,
-    charUtil: CharService,
-    config: Configuration,
-    implicit val ec: ExecutionContext) extends PeopleService {
+                                         ws: WSClient,
+                                         charUtil: ParsingService,
+                                         config: Configuration,
+                                         implicit val ec: ExecutionContext) extends PeopleService {
 
   val SALESLOFT_API_URL = config.get[String]("api.salesLoft.url")
   val token = config.get[String]("api.salesLoft.apiKey")
@@ -47,7 +47,7 @@ class SalesLoftPeopleService @Inject() (
     val totalPages = getTotalPages(pageSize)
     val people = peopleFromPageCount(totalPages, pageSize)
     val emails = onlyEmail(people)
-    charUtil.genCharCount(emails)
+    charUtil.lookupCharFrequency(emails)
   }
 
   override def find(page: Int, pageSize: Int): Future[PeoplePage] = {
