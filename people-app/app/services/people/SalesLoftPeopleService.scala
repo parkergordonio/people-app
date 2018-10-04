@@ -6,14 +6,14 @@ import models.CharCount.CharCountPair
 import models.people.{PageMeta, PeoplePage, Person}
 import play.api.Configuration
 import play.api.libs.ws.{WSClient, WSResponse}
-import utils.CharUtil
+import services.charCounter.{CharService}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
 class SalesLoftPeopleService @Inject() (
     ws: WSClient,
-    charUtil: CharUtil,
+    charUtil: CharService,
     config: Configuration,
     implicit val ec: ExecutionContext) extends PeopleService {
 
