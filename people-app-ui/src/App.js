@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Row, Col, Layout, Menu, Table, Divider } from 'antd';
-import CharCountDisplay from './CharCountDisplay';
+import OptionalDisplay from './OptionalDisplay';
 const { Header, Content, Footer } = Layout;
 
 class PeopleTable extends Component {
@@ -97,8 +97,8 @@ class App extends Component {
           <Content style={{ padding: '0 50px' }}>
             <div>
               <Divider>Directory</Divider>
-              <PeopleTable span={4}/>
-              <CharCountDisplay />
+              <PeopleTable />
+              <OptionalDisplay />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
