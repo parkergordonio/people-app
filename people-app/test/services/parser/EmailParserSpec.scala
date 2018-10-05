@@ -16,28 +16,46 @@ class EmailParserSpec extends AsyncFlatSpec {
       assert(chars.find(_.char == 'p').get.count == 1)
     }
   }
-
-  it should "determine possible duplicate emails with a heavy right sided similarity" in {
-    val dupedEmails = List("pparker@gmail.com", "parkparker@gmail.com", "parker@gmail.com")
-    val emails = "fakenondupe@gmail.com" :: dupedEmails
-    val emailInput = Future(emails)
-
-    val parser = new EmailParser()
-    val dupes = parser.lookupCharFrequency(emailInput)
-    dupes.map { d =>
-      assert(d == emails)
-    }
-  }
+//
+//  it should "determine possible duplicate emails with a heavy right sided similarity" in {
+//    val dupedEmails = List("pparker@gmail.com", "parkparker@gmail.com")
+//    val emails = "fakenondupe@gmail.com" :: dupedEmails
+//    val emailInput = Future(emails)
+//
+//    val parser = new EmailParser()
+//    val dupes = parser.lookupCharFrequency(emailInput)
+//    dupes.map { d =>
+//      assert(d == List(dupedEmails))
+//    }
+//  }
 
   it should "determine possible duplicate emails with a heavy left sided similarity" in {
-    val dupedEmails = List("tonys@gmail.com", "tonystark@gmail.com", "tony.stark@gmail.com")
+    val dupedEmails = List("tonys@gmail.com", "tonystark@gmail.com")
     val emails: List[String] = "fakenondupe@gmail.com" :: dupedEmails
     val emailInput = Future(emails)
 
     val parser = new EmailParser()
     val dupes = parser.predictDuplicates(emailInput)
     dupes.map { d =>
-      assert(d == dupedEmails)
+      assert(d == List(dupedEmails))
     }
+  }
+
+  it should "remove duplicates of the found duplicate emails with a heavy left sided similarity" in {
+    val dupedEmails = List("tonys@gmail.com", "tonystark@gmail.com")
+    val emails: List[String] = "fakenondupe@gmail.com" :: dupedEmails
+    val emailInput = Future(emails)
+
+    val parser = new EmailParser()
+    val dupes = parser.predictDuplicates(emailInput)
+    dupes.map { d =>
+      assert(d == List(dupedEmails))
+    }
+  }
+
+  it should "remove domain from emails" in {
+    val email = "parker@gmail.com"
+    val localPart = EmailParser.onlylocalPart(email)
+    assert(localPart == "parker")
   }
 }

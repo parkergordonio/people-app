@@ -8,7 +8,7 @@ import play.api.test.Helpers._
  * Functional tests start a Play application internally, available
  * as `app`.
  */
-class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
+//class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
 //
 //  "Routes" should {
 //
@@ -42,4 +42,4 @@ class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
 //      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "2"
 //    }
 //}
-}
+//}
