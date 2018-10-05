@@ -16,18 +16,19 @@ class EmailParserSpec extends AsyncFlatSpec {
       assert(chars.find(_.char == 'p').get.count == 1)
     }
   }
-//
-//  it should "determine possible duplicate emails with a heavy right sided similarity" in {
-//    val dupedEmails = List("pparker@gmail.com", "parkparker@gmail.com")
-//    val emails = "fakenondupe@gmail.com" :: dupedEmails
-//    val emailInput = Future(emails)
-//
-//    val parser = new EmailParser()
-//    val dupes = parser.lookupCharFrequency(emailInput)
-//    dupes.map { d =>
-//      assert(d == List(dupedEmails))
-//    }
-//  }
+
+  it should "determine possible duplicate emails with a heavy right sided similarity" in {
+    val dupedEmailsOne = List("jJones@hotmail.com", "jonesjones@hotmail.com")
+    val dupedEmailsTwo = List("parkparker@gmail.com", "pparker@gmail.com")
+    val emails = "fakenondupe@gmail.com" :: dupedEmailsOne ++ dupedEmailsTwo
+    val emailInput = Future(emails)
+
+    val parser = new EmailParser()
+    val dupes = parser.predictDuplicates(emailInput)
+    dupes.map { d =>
+      assert(d == List(dupedEmailsOne, dupedEmailsTwo))
+    }
+  }
 
   it should "determine possible duplicate emails with a heavy left sided similarity" in {
     val dupedEmails = List("tonys@gmail.com", "tonystark@gmail.com")

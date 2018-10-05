@@ -43,7 +43,8 @@ object EmailParser {
   }
 
   def toEmail(fullAddress: String): Email = {
-    Email(fullAddress, onlylocalPart(fullAddress))
+    val lowercaseLocal = onlylocalPart(fullAddress).toLowerCase()
+    Email(fullAddress, lowercaseLocal)
   }
 
   def onlylocalPart(s: String): String = s.split('@')(0)
@@ -113,18 +114,26 @@ object DuplicatePredictor {
       }
 
       case class LeftSamenessRule_Large(threshold: Int) extends Rule {
-        def rightSubRemoved(charsToRemove: Int, word: String): String = {
+        private def rightSubRemoved(charsToRemove: Int, word: String): String = {
           val lastCharIndex = word.length - charsToRemove
           word.substring(0, lastCharIndex)
         }
 
         override def isDuplicate(words: (String, String)): Boolean = {
           val (smallWord, largeWord) = sortWordSize(words)
-          println(s"Checking Small: ${smallWord}, Large: ${largeWord}")
           val oneCharRemoved = rightSubRemoved(threshold, smallWord)
           val leftSubTrimmed = largeWord.substring(0, oneCharRemoved.length)
           println(s"Comparing dupe: ${leftSubTrimmed}, ${oneCharRemoved}")
           leftSubTrimmed == oneCharRemoved
+        }
+      }
+
+      case class RightSamenessRule_Large(threshold: Int) extends Rule {
+        override def isDuplicate(words: (String, String)): Boolean = {
+          val reversedOne = words._1.reverse
+          val reversedTwo = words._2.reverse
+          println(s"Reversed: ${reversedOne}, ${reversedTwo}")
+          LeftSamenessRule_Large(threshold).isDuplicate((reversedOne, reversedTwo))
         }
       }
 
@@ -143,7 +152,8 @@ object DuplicatePredictor {
           val THRESHOLD_FACTOR = 1
 
           List(
-            LeftSamenessRule_Large(THRESHOLD_FACTOR)
+            LeftSamenessRule_Large(THRESHOLD_FACTOR),
+            RightSamenessRule_Large(THRESHOLD_FACTOR)
           )
         }
       }
