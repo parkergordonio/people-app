@@ -23,7 +23,7 @@ class EmailParser @Inject()(implicit val ex: ExecutionContext) extends ParsingSe
   }
 
 
-  override def predictDuplicates(emailFut: Future[List[String]]): Future[Seq[List[String]]] = {
+  override def possibleDuplicates(emailFut: Future[List[String]]): Future[Seq[List[String]]] = {
     def fullAddressOnly(e: Seq[List[Email]]): Seq[List[String]] = e.map(_.map(_.fullAddress))
 
     emailFut.map { emails =>

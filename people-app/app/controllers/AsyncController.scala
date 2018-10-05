@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 
 import akka.actor.ActorSystem
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
 import services.people.PeopleService
 
@@ -33,8 +33,14 @@ class PeopleController @Inject()(
   }
 
   def findCharFrequency() = Action.async {
-    peopleService.findCharFrequency().map { c =>
+    peopleService.findEmailCharFrequency().map { c =>
       Ok(Json.toJson(c))
+    }
+  }
+
+  def findDuplicateEmails() = Action.async {
+    peopleService.findEmailDuplicates().map { dupes =>
+      Ok(Json.toJson(dupes))
     }
   }
 

@@ -3,19 +3,21 @@ package services.people
 import javax.inject.Inject
 
 import models.CharCount.CharCountPair
+import models.duplicates.EmailDuplicates
 import models.people.{PageMeta, PeoplePage, Person}
 import play.api.Configuration
 import play.api.libs.ws.{WSClient, WSResponse}
-import services.parser.{ParsingService}
+import services.parser.EmailParser.Email
+import services.parser.{EmailParser, ParsingService}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
 class SalesLoftPeopleService @Inject() (
-                                         ws: WSClient,
-                                         charUtil: ParsingService,
-                                         config: Configuration,
-                                         implicit val ec: ExecutionContext) extends PeopleService {
+    ws: WSClient,
+    emailUtil: ParsingService,
+    config: Configuration,
+    implicit val ec: ExecutionContext) extends PeopleService {
 
   val SALESLOFT_API_URL = config.get[String]("api.salesLoft.url")
   val token = config.get[String]("api.salesLoft.apiKey")
@@ -42,12 +44,25 @@ class SalesLoftPeopleService @Inject() (
     people.map(_.map(_.email).toList)
   }
 
-  override def findCharFrequency(): Future[Seq[CharCountPair]] = {
+  private def getAllEmails() = {
     val pageSize = 10
     val totalPages = getTotalPages(pageSize)
     val people = peopleFromPageCount(totalPages, pageSize)
-    val emails = onlyEmail(people)
-    charUtil.lookupCharFrequency(emails)
+    onlyEmail(people)
+  }
+
+  override def findEmailCharFrequency(): Future[Seq[CharCountPair]] = {
+    val emails = getAllEmails()
+    emailUtil.lookupCharFrequency(emails)
+  }
+
+  override def findEmailDuplicates(): Future[EmailDuplicates] = {
+    val emails = getAllEmails()
+    val dupes = emailUtil.possibleDuplicates(emails)
+
+    dupes.map { d =>
+      EmailDuplicates(d.size, d)
+    }
   }
 
   override def find(page: Int, pageSize: Int): Future[PeoplePage] = {

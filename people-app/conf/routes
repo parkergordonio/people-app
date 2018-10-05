@@ -1,9 +1,11 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-GET     /people                     controllers.PeopleController.findPeople(page: Int, pageSize: Int)
+GET     /people                         controllers.PeopleController.findPeople(page: Int, pageSize: Int)
 
-GET     /people/char/frequency      controllers.PeopleController.findCharFrequency()
+GET     /people/email/charFrequency     controllers.PeopleController.findCharFrequency()
+
+GET     /people/email/duplicates        controllers.PeopleController.findDuplicateEmails()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)

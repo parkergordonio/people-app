@@ -24,7 +24,7 @@ class EmailParserSpec extends AsyncFlatSpec {
     val emailInput = Future(emails)
 
     val parser = new EmailParser()
-    val dupes = parser.predictDuplicates(emailInput)
+    val dupes = parser.possibleDuplicates(emailInput)
     dupes.map { d =>
       assert(d == List(dupedEmailsOne, dupedEmailsTwo))
     }
@@ -36,7 +36,7 @@ class EmailParserSpec extends AsyncFlatSpec {
     val emailInput = Future(emails)
 
     val parser = new EmailParser()
-    val dupes = parser.predictDuplicates(emailInput)
+    val dupes = parser.possibleDuplicates(emailInput)
     dupes.map { d =>
       assert(d == List(dupedEmails))
     }
@@ -48,7 +48,7 @@ class EmailParserSpec extends AsyncFlatSpec {
     val emailInput = Future(emails)
 
     val parser = new EmailParser()
-    val dupes = parser.predictDuplicates(emailInput)
+    val dupes = parser.possibleDuplicates(emailInput)
     dupes.map { d =>
       assert(d == List(dupedEmails))
     }
