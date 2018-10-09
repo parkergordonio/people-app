@@ -1,5 +1,5 @@
 FROM node:9
-RUN mkdir /peopleapp-ui
+RUN mkdir /people-app-ui
 WORKDIR .
 COPY . .
 

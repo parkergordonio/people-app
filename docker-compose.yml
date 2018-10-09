@@ -1,0 +1,16 @@
+version: '3'
+services:
+  people-ui:
+    build:
+      context: ./people-app-ui
+      dockerfile: Dockerfile
+    ports:
+     - "5000:5000"
+  people-api:
+    environment:
+      SALESLOFT_API_KEY: ${SALESLOFT_API_KEY}
+    build:
+      context: ./people-app
+      dockerfile: Dockerfile
+    ports:
+     - "9000:9000"

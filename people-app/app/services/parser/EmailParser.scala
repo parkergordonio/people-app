@@ -3,6 +3,7 @@ package services.parser
 import javax.inject.Inject
 
 import models.charCount.CharCountPair
+import play.Logger
 import services.parser.DuplicatePredictor.Words.Rules.Rule
 import services.parser.DuplicatePredictor.Words.getSizeRules
 
@@ -21,7 +22,6 @@ class EmailParser @Inject()(implicit val ex: ExecutionContext) extends ParsingSe
       counts.toSeq.sortWith(_.count > _.count)
     }
   }
-
 
   override def possibleDuplicates(emailFut: Future[List[String]]): Future[Seq[List[String]]] = {
     def fullAddressOnly(e: Seq[List[Email]]): Seq[List[String]] = e.map(_.map(_.fullAddress))
@@ -53,7 +53,7 @@ object EmailParser {
     val local = (email1.local, email2.local)
     val rules = DuplicatePredictor.getRules(local)
     val foundDuplicate = rules.exists(_.isDuplicate(local) == true)
-    println(s"Found duplicate ${foundDuplicate}")
+    Logger.debug(s"Found duplicate ${foundDuplicate}")
     if (foundDuplicate) Some(List(email1, email2)) else None
   }
 
@@ -71,7 +71,7 @@ object EmailParser {
         }
       }
     }
-    println(s"Found Dupes: ${dupes}")
+    Logger.debug(s"Found Dupes: ${dupes}")
     removeSameListing(dupes)
   }
 }
@@ -97,11 +97,9 @@ object DuplicatePredictor {
     def getSizeRules(word: String): List[Rule] = {
       word.length match {
         case l if l > SMALL_MAX_LENGTH => {
-          // println("Using rules for Large Words")
           LargeWord.rules()
         }
         case _ => {
-          // println("Using Rules for Small words")
           SmallWord.rules()
         }
       }
@@ -123,7 +121,7 @@ object DuplicatePredictor {
           val (smallWord, largeWord) = sortWordSize(words)
           val oneCharRemoved = rightSubRemoved(threshold, smallWord)
           val leftSubTrimmed = largeWord.substring(0, oneCharRemoved.length)
-          println(s"Comparing dupe: ${leftSubTrimmed}, ${oneCharRemoved}")
+          Logger.debug(s"Comparing dupe: ${leftSubTrimmed}, ${oneCharRemoved}")
           leftSubTrimmed == oneCharRemoved
         }
       }
@@ -132,7 +130,7 @@ object DuplicatePredictor {
         override def isDuplicate(words: (String, String)): Boolean = {
           val reversedOne = words._1.reverse
           val reversedTwo = words._2.reverse
-          println(s"Reversed: ${reversedOne}, ${reversedTwo}")
+          Logger.debug(s"Reversed: ${reversedOne}, ${reversedTwo}")
           LeftSamenessRule_Large(threshold).isDuplicate((reversedOne, reversedTwo))
         }
       }

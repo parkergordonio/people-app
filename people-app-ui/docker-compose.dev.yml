@@ -1,8 +1,0 @@
-version: '3'
-services:
-  people-ui-dev:
-    build: 
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-     - "5000:5000"
