@@ -1,5 +1,7 @@
 # People App
 A front-end React/AntD and back-end Scala API Service allowing users to interact with people data.
+![](https://docs.google.com/drawings/d/e/2PACX-1vTAa_83dKvZWfRBGcBkF56Axp-8cPZkdax_9xnHRzuQ8al8cmNspITcUOzWGrCY6Au3G0bKhccRG6MD/pub?w=935&h=596)
+
 ## Running the Services
 When running the backend API service, you must have the environment variable "SALESLOFT_API_KEY" set in your current session.
 
