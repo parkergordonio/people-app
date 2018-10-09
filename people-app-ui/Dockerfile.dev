@@ -3,8 +3,6 @@ RUN mkdir /peopleapp-ui
 WORKDIR .
 COPY . .
 
-RUN npm install --quiet
-
 CMD ["npm", "start"]
 
 EXPOSE 3000

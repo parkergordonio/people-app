@@ -1,6 +1,6 @@
 package services.parser
 
-import models.CharCount.CharCountPair
+import models.charCount.CharCountPair
 
 import scala.concurrent.Future
 

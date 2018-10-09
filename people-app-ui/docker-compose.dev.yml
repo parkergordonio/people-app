@@ -1,6 +1,6 @@
 version: '3'
 services:
-  people-app-ui:
+  people-ui-dev:
     build: 
       context: .
       dockerfile: Dockerfile.dev

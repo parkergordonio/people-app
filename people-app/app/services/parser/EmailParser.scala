@@ -2,7 +2,7 @@ package services.parser
 
 import javax.inject.Inject
 
-import models.CharCount.CharCountPair
+import models.charCount.CharCountPair
 import services.parser.DuplicatePredictor.Words.Rules.Rule
 import services.parser.DuplicatePredictor.Words.getSizeRules
 

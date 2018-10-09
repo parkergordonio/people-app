@@ -2,7 +2,7 @@ package services.people
 
 import javax.inject.Inject
 
-import models.CharCount.CharCountPair
+import models.charCount.CharCountPair
 import models.duplicates.EmailDuplicates
 import models.people.{PageMeta, PeoplePage, Person}
 import play.api.Configuration

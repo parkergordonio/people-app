@@ -1,6 +1,6 @@
 package services.people
 
-import models.CharCount.CharCountPair
+import models.charCount.CharCountPair
 import models.duplicates.EmailDuplicates
 import models.people.{PeoplePage, Person}
 import services.parser.EmailParser.Email

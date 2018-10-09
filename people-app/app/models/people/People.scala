@@ -24,6 +24,27 @@ object PageMeta {
 }
 
 
+
+case class Person(id: Int, fullName: String, email: String, jobTitle: String)
+
+object Person {
+  implicit val personWrites = new Writes[Person] {
+    def writes(person: Person) = Json.obj(
+      "fullName" -> person.fullName,
+      "emailAddress" -> person.email,
+      "jobTitle" -> person.jobTitle
+    )
+  }
+
+  implicit val personReads: Reads[Person] = (
+    (JsPath \ "id").read[Int] and
+      (JsPath \ "display_name").read[String] and
+      (JsPath \ "email_address").read[String] and
+      (JsPath \ "title").read[String]
+    )(Person.apply _)
+}
+
+
 case class PeoplePage(meta: PageMeta, people: Seq[Person])
 
 object PeoplePage {
@@ -43,22 +64,3 @@ object PeoplePage {
 }
 
 
-
-case class Person(id: Int, fullName: String, email: String, jobTitle: String)
-
-object Person {
-  implicit val personWrites = new Writes[Person] {
-    def writes(person: Person) = Json.obj(
-      "fullName" -> person.fullName,
-      "emailAddress" -> person.email,
-      "jobTitle" -> person.jobTitle
-    )
-  }
-
-  implicit val personReads: Reads[Person] = (
-    (JsPath \ "id").read[Int] and
-    (JsPath \ "display_name").read[String] and
-    (JsPath \ "email_address").read[String] and
-    (JsPath \ "title").read[String]
-  )(Person.apply _)
-}

@@ -9,7 +9,7 @@ object EmailDupePairs {
 
   implicit val emailDupePairsWrites = new Writes[EmailDupePairs] {
     def writes(dupes: EmailDupePairs) = Json.obj(
-      "emails" -> dupes
+      "emails" -> dupes.mkString(", ")
     )
   }
 }
@@ -21,7 +21,7 @@ object EmailDuplicates {
     def writes(meta: EmailDuplicates) = Json.obj(
       "totalFound" -> meta.totalFound,
       "duplicates" -> meta.duplicatePairs.map { dupe =>
-        Json.obj("emails" -> dupe)
+        Json.obj("emails" -> dupe.mkString(", "))
       }
     )
   }
