@@ -1,6 +1,8 @@
 # People App
 A front-end React/AntD and back-end Scala API Service allowing users to interact with people data.
 ## Running the Services
+When running the backend API service, you must have the environment variable "SALESLOFT_API_KEY" set in your current session.
+
 ### Prod Mode (Docker/docker-compose)
 #### Running
 For now the API service needs to be built before hand in order to run the apps with docker-compose. To do this:

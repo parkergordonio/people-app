@@ -1,9 +1,10 @@
 # people-app
+This is a Scala/Play/Akka API application to view people data!
 
-This is an application to view people data!
+## Running
+When running the backend API service, you must have the environment variable "SALESLOFT_API_KEY" set in your current session.
 
-## Run from Source
-
+### From Source
 Run the people-app from source with the prepackaged [sbt](http://www.scala-sbt.org/) (Simple build tool).
 
 ```bash
