@@ -2,6 +2,14 @@
 A front-end React/AntD and back-end Scala API Service allowing users to interact with people data.
 ![](https://docs.google.com/drawings/d/e/2PACX-1vTAa_83dKvZWfRBGcBkF56Axp-8cPZkdax_9xnHRzuQ8al8cmNspITcUOzWGrCY6Au3G0bKhccRG6MD/pub?w=935&h=596)
 
+
+## System Architecture
+People app is a front-end to back-end architecture with two primary services and no data store.
+### API Service
+The backend is a Scala based Play! web service
+### UI
+The UI is a React/Ant Design app with Serve as the Httpserver.
+
 ## Running the Services
 When running the backend API service, you must have the environment variable "SALESLOFT_API_KEY" set in your current session.
 
@@ -30,11 +38,6 @@ This will `docker-compose up` the frontend(people-app-ui) docker-compose file as
 ### From Source
 When doing development on servies you should run them from source. To do this follow the README's within the `people-app-ui` and `people-app` directories.
 
-## Architecture
-### API Services
-The backend is a Scala based Play! web service
-### UI
-The UI is a React/Ant Design app with Serve as the Httpserver.
-
 ## Running Tests
 Follow the instructions in each app README
+
