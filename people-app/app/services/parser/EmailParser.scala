@@ -76,6 +76,7 @@ object EmailParser {
   }
 }
 
+
 object DuplicatePredictor {
 
   private def sortWordSize(words: (String, String)): (String, String) = {

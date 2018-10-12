@@ -85,19 +85,4 @@ class SalesLoftPeopleService @Inject() (
       (response.json \ "metadata" \ "paging" \ "total_pages").as[Int]
     }
   }
-//
-//  def sendRequest(): Future[WSResponse] = {
-//    val authHeader = s"Bearer ${token}"
-//    val request = ws.url(SALESLOFT_API_URL).addHttpHeaders("Authorization" -> authHeader)
-//    request.get()
-//  }
-
-//  override def test(): Future[Person] = {
-//    val authHeader = s"Bearer ${token}"
-//    val request = ws.url(SALESLOFT_API_URL).addHttpHeaders("Authorization" -> authHeader)
-//    request.get().map { response =>
-//      val perPage = (response.json \ "metadata" \ "paging" \ "per_page").as[Int]
-//      Person(perPage)
-//    }
-//  }
 }
